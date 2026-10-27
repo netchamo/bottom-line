@@ -2,10 +2,11 @@
 <html lang="he" dir="rtl" data-skin="clean">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>השורה התחתונה</title>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#3D41D6">
+<meta name="theme-color" content="#3D41D6" id="themeColor">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="השורה התחתונה">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -41,9 +42,20 @@
   --radius:12px;
   --display:"Secular One","Assistant",system-ui,"Segoe UI",Arial,sans-serif;
   --body:"Assistant",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --title:"Frank Ruhl Libre","David Libre",Georgia,serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
+  :root{
+    --bg:#111327;--band:#111327;--paper:#1A1D37;--paper-2:#151831;--ink:#E9EBF8;--muted:#A2A7C9;--line:#2B2F55;
+    --accent:#9497FF;--accent-ink:#111327;--accent-soft:rgba(148,151,255,.14);--own-bg:rgba(148,151,255,.08);
+    --mark-soft:rgba(255,207,58,.20);--danger:#FF7D93;--danger-soft:rgba(255,125,147,.12);--ok:#5ED39C;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+/* On a phone the clean skin is always dark */
+@media (max-width:700px){
   :root{
     --bg:#111327;--band:#111327;--paper:#1A1D37;--paper-2:#151831;--ink:#E9EBF8;--muted:#A2A7C9;--line:#2B2F55;
     --accent:#9497FF;--accent-ink:#111327;--accent-soft:rgba(148,151,255,.14);--own-bg:rgba(148,151,255,.08);
@@ -73,7 +85,7 @@ button,input,select{font:inherit;color:inherit}
 
 /* Shared geometry: both skins use the same board + sheet boxes, so every control lands in the same place.
    The clean skin simply draws them invisibly. */
-.wrap{max-width:860px;margin:0 auto;padding:22px 12px 60px}
+.wrap{max-width:860px;margin:0 auto;padding:calc(env(safe-area-inset-top,0px) + 22px) max(12px,env(safe-area-inset-right,0px)) 60px max(12px,env(safe-area-inset-left,0px))}
 .board{position:relative;border-radius:26px;padding:46px 20px 24px}
 .pad{position:relative;border-radius:6px;padding:34px 36px 28px}
 .clip,.binding{display:none}
@@ -123,12 +135,11 @@ html[data-skin=pad] .ownbadge{background:var(--brass);color:#FFF8E6}
 
 /* ---------- Header ---------- */
 header{display:grid;gap:4px;margin-bottom:24px}
-.skin{justify-self:end;display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
-h1{display:inline-block;justify-self:center;position:relative;font-family:var(--display);font-weight:400;font-size:clamp(34px,7vw,48px);line-height:1.1;margin:0;padding-bottom:14px;letter-spacing:-.01em}
+.skin{justify-self:center;margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+h1{display:inline-block;justify-self:center;position:relative;font-family:var(--title);font-weight:900;font-size:clamp(34px,7vw,48px);line-height:1.1;margin:0;padding-bottom:14px;letter-spacing:-.01em}
 h1 .t2{color:var(--accent)}
 /* the accounting "bottom line": a double rule under the total */
 h1::after{content:"";position:absolute;right:0;left:0;bottom:0;height:9px;border-top:3px solid var(--ink);border-bottom:1.5px solid var(--ink)}
-html[data-skin=pad] h1{font-weight:900;letter-spacing:0}
 html[data-skin=pad] h1::after{border-color:var(--brass)}
 .tag{color:var(--muted);margin:14px 0 0;font-size:15px;text-align:center}
 
@@ -306,9 +317,9 @@ html[data-skin=pad] .p .n{font-weight:700;color:var(--brass)}
   .tab{font-size:15px;padding:11px 8px;gap:6px}
   .c.reply{margin-inline-start:22px}
   .c.reply::before{right:-15px;width:10px}
-  .wrap{padding:12px 6px 40px}
-  .board{padding:44px 8px 12px;border-radius:18px}
-  .pad{padding:30px 14px 20px}
+  .wrap{padding:calc(env(safe-area-inset-top,0px) + 10px) max(6px,env(safe-area-inset-right,0px)) 40px max(6px,env(safe-area-inset-left,0px))}
+  .board{padding:42px 8px 12px;border-radius:18px}
+  .pad{padding:26px 14px 20px}
   html[data-skin=pad] .clip{width:140px;height:46px}
   html[data-skin=pad] .clip::after{top:26px}
   html[data-skin=pad] .pad::before{right:6px;width:3px}
@@ -323,14 +334,14 @@ html[data-skin=pad] .p .n{font-weight:700;color:var(--brass)}
   <div class="pad">
   <div class="binding" aria-hidden="true"></div>
   <header>
+    <h1><span>השורה</span> <span class="t2">התחתונה</span></h1>
+    <p class="tag">מדביקים קישור, מסמנים את התגובות שמעניינות אותי, ומסדרים אותן ברשימה אחת נקייה.</p>
     <div class="skin">עיצוב
       <div class="seg" role="group" aria-label="עיצוב">
         <button type="button" data-skin="clean" aria-pressed="true">נקי</button>
         <button type="button" data-skin="pad" aria-pressed="false">פנקס</button>
       </div>
     </div>
-    <h1><span>השורה</span> <span class="t2">התחתונה</span></h1>
-    <p class="tag">מדביקים קישור, מסמנים את התגובות שמעניינות אותי, ומסדרים אותן ברשימה אחת נקייה.</p>
   </header>
 
   <section class="panel">
@@ -505,6 +516,7 @@ function parseId(s){
 function applySkin(){
   document.documentElement.dataset.skin=V.skin;
   document.querySelectorAll('.skin .seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.skin===V.skin));
+  const tc=$('#themeColor');if(tc)tc.content=getComputedStyle(document.body).backgroundColor||'#111327';
 }
 document.querySelectorAll('.skin .seg button').forEach(b=>b.onclick=()=>{V.skin=b.dataset.skin;saveView();applySkin()});
 
