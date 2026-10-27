@@ -1,10 +1,11 @@
 {
+  "id": "./?app=bottom-line",
   "name": "השורה התחתונה",
   "short_name": "השורה התחתונה",
   "description": "שליפת תגובות מסרטון יוטיוב, סימון ומיון של התגובות המעניינות.",
   "lang": "he",
   "dir": "rtl",
-  "start_url": "./",
+  "start_url": "./?app=bottom-line",
   "scope": "./",
   "display": "standalone",
   "background_color": "#111327",

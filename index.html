@@ -143,6 +143,9 @@ h1 .t2{color:var(--accent)}
 h1::after{content:"";position:absolute;right:0;left:0;bottom:0;height:9px;border-top:3px solid var(--ink);border-bottom:1.5px solid var(--ink)}
 html[data-skin=pad] h1::after{border-color:var(--brass)}
 .tag{color:var(--muted);margin:14px 0 0;font-size:15px;text-align:center}
+.install{justify-self:center;margin-top:10px;background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+html[data-skin=pad] .install{background:var(--accent)}
+.install-hint{justify-self:center;text-align:center;margin-top:8px}
 
 /* ---------- Panels & inputs ---------- */
 .panel{background:var(--paper);border:1px solid var(--line);border-radius:calc(var(--radius) + 2px);box-shadow:var(--shadow)}
@@ -343,6 +346,8 @@ html[data-skin=pad] .p .n{font-weight:700;color:var(--brass)}
         <button type="button" data-skin="pad" aria-pressed="false">פנקס</button>
       </div>
     </div>
+    <button class="btn install" type="button" id="installBtn" hidden>התקנה כאפליקציה במכשיר</button>
+    <p class="small install-hint" id="iosHint" hidden>להתקנה באייפון: לוחצים על כפתור השיתוף ובוחרים הוספה למסך הבית.</p>
   </header>
 
   <section class="panel">
@@ -1008,6 +1013,20 @@ function loadDemo(){
   S.picked=[0,4,11].map(i=>pickObj(S.comments[i]));
   reindex();renderVideo();refresh('reset');renderPicked();
 }
+
+/* ---------- install as an app ---------- */
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+let installEvt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvt=e;if(!standalone)$('#installBtn').hidden=false});
+$('#installBtn').onclick=async()=>{
+  if(!installEvt)return;
+  installEvt.prompt();
+  const r=await installEvt.userChoice.catch(()=>({}));
+  installEvt=null;$('#installBtn').hidden=true;
+  if(r.outcome==='accepted')toast('האפליקציה מותקנת');
+};
+window.addEventListener('appinstalled',()=>{$('#installBtn').hidden=true;toast('האפליקציה הותקנה במכשיר')});
+if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!standalone)$('#iosHint').hidden=false;
 
 applySkin();renderKey();renderViewOpts();
 const last=store.get('cp_last',null);
