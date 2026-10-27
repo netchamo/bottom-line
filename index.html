@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Secular+One&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Frank+Ruhl+Libre:wght@500;700;900&family=Secular+One&display=swap">
 <style>
 /* Layout: one reading column. Two skins share every component:
    "clean" = indigo ink + yellow highlighter on cool paper;
@@ -33,6 +33,7 @@
   --mark:#FFCF3A;
   --mark-ink:#3A2D00;
   --mark-soft:rgba(255,207,58,.42);
+  --mark-line:var(--mark);
   --danger:#C23149;
   --danger-soft:rgba(194,49,73,.09);
   --ok:#1E8556;
@@ -42,14 +43,14 @@
   --radius:12px;
   --display:"Secular One","Assistant",system-ui,"Segoe UI",Arial,sans-serif;
   --body:"Assistant",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-  --title:"Frank Ruhl Libre","David Libre",Georgia,serif;
+  --title:"Assistant",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#111327;--band:#111327;--paper:#1A1D37;--paper-2:#151831;--ink:#E9EBF8;--muted:#A2A7C9;--line:#2B2F55;
     --accent:#9497FF;--accent-ink:#111327;--accent-soft:rgba(148,151,255,.14);--own-bg:rgba(148,151,255,.08);
-    --mark-soft:rgba(255,207,58,.20);--danger:#FF7D93;--danger-soft:rgba(255,125,147,.12);--ok:#5ED39C;
+    --mark:#CFA868;--mark-ink:#1E1810;--mark-soft:rgba(207,168,104,.11);--mark-line:rgba(207,168,104,.42);--danger:#FF7D93;--danger-soft:rgba(255,125,147,.12);--ok:#5ED39C;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.25);
     color-scheme:dark;
   }
@@ -59,7 +60,7 @@
   :root{
     --bg:#111327;--band:#111327;--paper:#1A1D37;--paper-2:#151831;--ink:#E9EBF8;--muted:#A2A7C9;--line:#2B2F55;
     --accent:#9497FF;--accent-ink:#111327;--accent-soft:rgba(148,151,255,.14);--own-bg:rgba(148,151,255,.08);
-    --mark-soft:rgba(255,207,58,.20);--danger:#FF7D93;--danger-soft:rgba(255,125,147,.12);--ok:#5ED39C;
+    --mark:#CFA868;--mark-ink:#1E1810;--mark-soft:rgba(207,168,104,.11);--mark-line:rgba(207,168,104,.42);--danger:#FF7D93;--danger-soft:rgba(255,125,147,.12);--ok:#5ED39C;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 22px rgba(0,0,0,.25);
     color-scheme:dark;
   }
@@ -69,7 +70,7 @@
 html[data-skin=pad]{
   --bg:#1D2520;--band:#F3E6C6;--paper:#F3E6C6;--paper-2:#F9F0DA;--field:#FCF6E6;--ink:#2E2418;--muted:#76644A;--line:rgba(110,80,40,.26);
   --accent:#7A2A24;--accent-ink:#F8EEDB;--accent-soft:rgba(122,42,36,.10);--own-bg:rgba(176,141,87,.17);
-  --mark:#B08D57;--mark-ink:#2E2418;--mark-soft:rgba(201,150,62,.30);
+  --mark:#B08D57;--mark-ink:#2E2418;--mark-soft:rgba(201,150,62,.30);--mark-line:#B08D57;
   --danger:#9E2A20;--danger-soft:rgba(158,42,32,.10);--ok:#3F6B3A;
   --rule:rgba(70,95,130,.15);--margin:rgba(150,52,40,.42);--brass:#A8823F;
   --shadow:0 1px 2px rgba(60,40,15,.07);
@@ -87,7 +88,7 @@ button,input,select{font:inherit;color:inherit}
    The clean skin simply draws them invisibly. */
 .wrap{max-width:860px;margin:0 auto;padding:calc(env(safe-area-inset-top,0px) + 22px) max(12px,env(safe-area-inset-right,0px)) 60px max(12px,env(safe-area-inset-left,0px))}
 .board{position:relative;border-radius:26px;padding:46px 20px 24px}
-.pad{position:relative;border-radius:6px;padding:34px 36px 28px}
+.pad{position:relative;border-radius:6px;padding:52px 36px 28px}
 .clip,.binding{display:none}
 
 /* ---------- Pad skin ---------- */
@@ -136,7 +137,7 @@ html[data-skin=pad] .ownbadge{background:var(--brass);color:#FFF8E6}
 /* ---------- Header ---------- */
 header{display:grid;gap:4px;margin-bottom:24px}
 .skin{justify-self:center;margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
-h1{display:inline-block;justify-self:center;position:relative;font-family:var(--title);font-weight:900;font-size:clamp(34px,7vw,48px);line-height:1.1;margin:0;padding-bottom:14px;letter-spacing:-.01em}
+h1{display:inline-block;justify-self:center;position:relative;font-family:var(--title);font-weight:800;font-size:clamp(34px,7vw,48px);line-height:1.1;margin:0;padding-bottom:14px;letter-spacing:-.01em}
 h1 .t2{color:var(--accent)}
 /* the accounting "bottom line": a double rule under the total */
 h1::after{content:"";position:absolute;right:0;left:0;bottom:0;height:9px;border-top:3px solid var(--ink);border-bottom:1.5px solid var(--ink)}
@@ -240,11 +241,11 @@ html[data-skin=pad] .mini{background:var(--field)}
 .c{position:relative;display:flex;gap:14px;align-items:flex-start;padding:14px 16px;background-color:var(--paper);
    background-image:linear-gradient(var(--mark-soft),var(--mark-soft));background-repeat:no-repeat;background-position:right center;background-size:0% 100%;
    border:1px solid var(--line);border-radius:var(--radius);cursor:pointer;transition:background-size .38s cubic-bezier(.4,.1,.2,1),border-color .2s;user-select:text}
-.c:hover{border-color:color-mix(in srgb,var(--mark) 60%,var(--line))}
-.c.on{background-size:100% 100%;border-color:var(--mark)}
+.c:hover{border-color:color-mix(in srgb,var(--mark-line) 60%,var(--line))}
+.c.on{background-size:100% 100%;border-color:var(--mark-line)}
 .c.own{background-color:var(--own-bg);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
 html[data-skin=pad] .c.own{background-color:#EFE0BC}
-.c.own.on{border-color:var(--mark)}
+.c.own.on{border-color:var(--mark-line)}
 .c.reply{margin-inline-start:34px}
 .c.reply::before{content:"";position:absolute;right:-22px;top:-11px;width:14px;height:34px;border-right:2px solid var(--line);border-bottom:2px solid var(--line);border-bottom-right-radius:10px}
 .tick{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;margin-top:1px;transition:all .2s;background:var(--paper)}
@@ -319,7 +320,7 @@ html[data-skin=pad] .p .n{font-weight:700;color:var(--brass)}
   .c.reply::before{right:-15px;width:10px}
   .wrap{padding:calc(env(safe-area-inset-top,0px) + 10px) max(6px,env(safe-area-inset-right,0px)) 40px max(6px,env(safe-area-inset-left,0px))}
   .board{padding:42px 8px 12px;border-radius:18px}
-  .pad{padding:26px 14px 20px}
+  .pad{padding:46px 14px 20px}
   html[data-skin=pad] .clip{width:140px;height:46px}
   html[data-skin=pad] .clip::after{top:26px}
   html[data-skin=pad] .pad::before{right:6px;width:3px}
