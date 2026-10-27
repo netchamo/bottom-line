@@ -1,6 +1,6 @@
 // Keeps the app shell available offline. YouTube API calls always go to the network.
-const CACHE = 'bottom-line-v5';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
+const CACHE = 'bottom-line-v6';
+const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-v2.svg', './icon-v2-192.png', './icon-v2-512.png', './apple-touch-icon-v2.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
